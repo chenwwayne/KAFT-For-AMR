@@ -405,13 +405,13 @@ def evaluate_by_snr(
 
 def get_dataset_loader(dataset_version):
     """根据数据集版本返回对应的加载函数"""
-    if dataset_version == '10a':
+    if dataset_version == 'RML201610a':
         from dataset.RML201610a import load_data
         return load_data, 'RML2016.10a.pkl'
-    elif dataset_version == '10b':
+    elif dataset_version == 'RML201610b':
         from dataset.RML201610b import load_data
         return load_data, 'RML2016.10b.dat'
-    elif dataset_version == '04c':
+    elif dataset_version == 'RML201604c':
         from dataset.RML201604c import load_data
         return load_data, 'RML2016.04c.pkl'
 
@@ -420,7 +420,7 @@ def parse_args():
     """解析命令行参数"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='10b',
-                        choices=['10a', '10b', '04c'], help='Dataset version')
+                        choices=['RML201610a', 'RML201610b', 'RML201604c'], help='Dataset version')
     parser.add_argument('--data_path', type=str, default='./dataset',
                         help='Path to dataset directory')
     parser.add_argument('--n_epochs', type=int, default=1_000_000_000)
@@ -443,6 +443,13 @@ def main():
 
     args = parse_args()
 
+    # 打印所有参数
+    print("\n" + "="*40)
+    print("Running with parameters:")
+    for arg in vars(args):
+        print(f"{arg:>20}: {getattr(args, arg)}")
+    print("="*40 + "\n")
+
     # 设置 CUDA_VISIBLE_DEVICES 环境变量
     if args.device == "cuda":
         os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
@@ -453,6 +460,8 @@ def main():
     # 设置设备
     device = torch.device(args.device if torch.cuda.is_available() and args.device == "cuda" else "cpu")
     print(f"Using device: {device}")
+
+    print(args)
 
     # 获取数据加载器和对应文件名
     load_data_fn, data_file = get_dataset_loader(args.dataset)

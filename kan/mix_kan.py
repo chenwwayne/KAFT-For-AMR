@@ -255,8 +255,8 @@ class KANEmbeddings(nn.Module):
             length_scale=gp_length_scale,
             # kernel_function=gp_kernel_function,
             # kernel_function=GaussianProcess().tanh_matern,
-            # kernel_function=GaussianProcess().matern_kernel,
-            kernel_function=GaussianProcess().rbf_kernel,
+            kernel_function=GaussianProcess().matern_kernel,
+            # kernel_function=GaussianProcess().rbf_kernel,
             init_scale=gp_spline_weight_init_scale,
         )
 
@@ -329,13 +329,73 @@ class KANEmbeddings(nn.Module):
         # spline_output = torch.einsum("bni, ndi -> bnd", spline_bases, self.scaled_spline_weight)
 
         # Fourier 变换
-        # fourier_output = self.fourier_layer(x)  # (batch_size, n_features, d_embedding)
+        fourier_output = self.fourier_layer(x)  # (batch_size, n_features, d_embedding)
 
         # GP 变换
-        gp_output = self.gp_layer(x)  # (batch_size, n_features, d_embedding)
+        # gp_output = self.gp_layer(x)  # (batch_size, n_features, d_embedding)
         
         # 合并所有部分
         # output = base_output + spline_output + fourier_output + gp_output
         # output = base_output + spline_output 
-        output = base_output + gp_output
+        # output = base_output + gp_output
+        output = base_output + fourier_output
         return output
+
+
+# class KANEmbeddings(nn.Module):
+#     def __init__(
+#         self,
+#         n_features: int,
+#         d_embedding: int,
+#         grid_size=5,
+#         spline_order=3,
+#         scale_noise=0.1,
+#         scale_base=1.0,
+#         scale_spline=1.0,
+#         enable_standalone_scale_spline=True,
+#         base_activation=nn.SiLU,
+#         grid_eps=0.02,
+#         grid_range=[-1, 1],
+#         fourier_gridsize=10,  # Fourier 变换的 grid size
+#         gp_grid_min: float = -2,
+#         gp_grid_max: float = 2,
+#         gp_num_grids: int = 8,
+#         gp_length_scale: float = 1,
+#         gp_kernel_function: Callable[[torch.Tensor, torch.Tensor], torch.Tensor] = None,
+#         gp_spline_weight_init_scale: float = 0.1,
+#     ):
+#         super().__init__()
+#         self.n_features = n_features 
+#         self.d_embedding = d_embedding
+        
+#         # 基础线性变换
+#         self.base_weight = nn.Parameter(torch.Tensor(n_features, d_embedding))
+#         self.base_activation = base_activation()
+        
+#         # GP变换层
+#         self.gp_layer = GPKANLayer(
+#             input_dim=n_features,
+#             output_dim=d_embedding,
+#             grid_min=gp_grid_min,
+#             grid_max=gp_grid_max,
+#             num_grids=gp_num_grids,
+#             length_scale=gp_length_scale,
+#             kernel_function=GaussianProcess().matern_kernel,
+#             init_scale=gp_spline_weight_init_scale,
+#         )
+#         self.scale_base = scale_base
+#         # 初始化参数
+#         self.reset_parameters()
+
+#     def reset_parameters(self):
+#         nn.init.kaiming_uniform_(self.base_weight, a=math.sqrt(5) * self.scale_base)
+
+#     def forward(self, x: torch.Tensor) -> torch.Tensor:
+#         """优化后的前向传播，仅保留base和GP变换"""
+#         # 基础变换 (SiLU激活 + 线性投影)
+#         base_output = self.base_activation(x).unsqueeze(-1) * self.base_weight.unsqueeze(0)
+        
+#         # GP变换
+#         gp_output = self.gp_layer(x)
+        
+#         return base_output + gp_output
