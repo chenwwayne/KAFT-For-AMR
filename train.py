@@ -420,21 +420,121 @@ def parse_args():
     """解析命令行参数"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='10b',
-                        choices=['RML201610a', 'RML201610b', 'RML201604c'], help='Dataset version')
+                      choices=['RML201610a', 'RML201610b', 'RML201604c'], help='Dataset version')
     parser.add_argument('--data_path', type=str, default='./dataset',
-                        help='Path to dataset directory')
+                      help='Path to dataset directory')
     parser.add_argument('--n_epochs', type=int, default=1_000_000_000)
     parser.add_argument('--patience', type=int, default=16)
     parser.add_argument('--batch_size', type=int, default=1024)
     parser.add_argument('--accumulation_steps', type=int, default=1)
     parser.add_argument('--data_ratio', type=float, default=1.0)
     parser.add_argument('--lr', type=float, default=1e-3, help='初始学习率')
-    parser.add_argument('--lr_patience', type=int, default=5, help='学习率调度器的耐心值(多少个epoch无改善后降学习率)')
+    parser.add_argument('--lr_patience', type=int, default=5, 
+                      help='学习率调度器的耐心值(多少个epoch无改善后降学习率)')
     parser.add_argument('--lr_factor', type=float, default=0.5, help='学习率衰减系数')
-    parser.add_argument('--device', type=str, default="cuda", choices=["cuda", "cpu"], help='运行设备')
-    parser.add_argument('--gpu', type=str, default="0", help='指定要使用的 GPU 设备编号，如 "0" 或 "0,1,2"')
+    parser.add_argument('--device', type=str, default="cuda", 
+                      choices=["cuda", "cpu"], help='运行设备')
+    parser.add_argument('--gpu', type=str, default="0", 
+                      help='指定要使用的 GPU 设备编号，如 "0" 或 "0,1,2"')
+    parser.add_argument('--best_model_path', type=str, default='best_model.pth',
+                      help='Path to save the best model')
     return parser.parse_args()
 
+def train_model(model, optimizer, scheduler, data, n_epochs, patience, batch_size, 
+               accumulation_steps=1, best_model_path='best_model.pth'):
+    """训练模型"""
+    loss_fn = torch.nn.CrossEntropyLoss()
+    scaler = GradScaler()
+
+    epoch_size = math.ceil(len(data["train"]["y"]) / batch_size)
+    timer = delu.tools.Timer()
+    early_stopping = delu.tools.EarlyStopping(patience, mode="max")
+    best = {"val": -math.inf, "test": -math.inf, "epoch": -1}
+
+    start_time = time.time()
+    best_time = None
+
+    print(f"Device: {device.type.upper()}")
+    print("-" * 88 + "\n")
+    timer.run()
+
+    optimizer.zero_grad()
+
+    for epoch in range(n_epochs):
+        train_loss = 0.0
+        model.train()
+
+        for i, batch_cpu in enumerate(tqdm(delu.iter_batches(data["train"], batch_size, shuffle=True), 
+                                     desc=f"Epoch {epoch}", total=epoch_size)):
+            batch = {k: v.to(device) for k, v in batch_cpu.items()}
+
+            with autocast('cuda'):
+                output = apply_model(model, batch)
+                target = batch["y"]
+                loss = loss_fn(output, target) / accumulation_steps
+
+            scaler.scale(loss).backward()
+
+            if (i + 1) % accumulation_steps == 0:
+                scaler.step(optimizer)
+                scaler.update()
+                optimizer.zero_grad()
+
+            train_loss += loss.item() * len(batch["y"]) * accumulation_steps
+
+        train_loss /= len(data["train"]["y"])
+
+        model.eval()
+        val_loss = 0.0
+        test_loss = 0.0
+        with torch.no_grad(), autocast('cuda'):
+            for part in ["val", "test"]:
+                loss_sum = 0.0
+                for batch_cpu in delu.iter_batches(data[part], batch_size):
+                    batch = {k: v.to(device) for k, v in batch_cpu.items()}
+                    output = apply_model(model, batch)
+                    target = batch["y"]
+                    loss = loss_fn(output, target)
+                    loss_sum += loss.item() * len(batch["y"])
+                if part == "val":
+                    val_loss = loss_sum / len(data[part]["y"])
+                elif part == "test":
+                    test_loss = loss_sum / len(data[part]["y"])
+
+        val_score = evaluate(model, data, "val", batch_size=batch_size)[0]
+        test_score = evaluate(model, data, "test", batch_size=batch_size)[0]
+
+        scheduler.step(val_score)
+
+        print(
+            f"Epoch {epoch}, "
+            f"Train Loss: {train_loss:.4f}, "
+            f"Val Loss: {val_loss:.4f}, "
+            f"Test Loss: {test_loss:.4f}, "
+            f"Val Acc: {val_score:.4f}, "
+            f"Test Acc: {test_score:.4f}"
+        )
+
+        # 保存最佳模型
+        if val_score > best["val"]:
+            print(f"🌸 New best epoch! 🌸")
+            best = {"val": val_score, "test": test_score, "epoch": epoch}
+            best_time = time.time()
+            torch.save(model.state_dict(), best_model_path)
+
+        early_stopping.update(val_score)
+        if early_stopping.should_stop():
+            break
+
+        print()
+
+    if best_time is not None:
+        total_time = best_time - start_time
+        print(f"Time to best model: {total_time:.2f} seconds")
+    else:
+        print("No best model found.")
+
+    return best
 
 def main():
     """主函数"""
@@ -461,8 +561,6 @@ def main():
     device = torch.device(args.device if torch.cuda.is_available() and args.device == "cuda" else "cpu")
     print(f"Using device: {device}")
 
-    print(args)
-
     # 获取数据加载器和对应文件名
     load_data_fn, data_file = get_dataset_loader(args.dataset)
     data_path = os.path.join(args.data_path, data_file)
@@ -488,7 +586,15 @@ def main():
         patience=args.patience,
         batch_size=args.batch_size,
         accumulation_steps=args.accumulation_steps,
+        best_model_path=args.best_model_path
     )
+
+    # 加载最佳模型进行评估
+    if os.path.exists(args.best_model_path):
+        model.load_state_dict(torch.load(args.best_model_path))
+        print(f"Loaded best model from {args.best_model_path} for evaluation.")
+    else:
+        print("Warning: No best model found, using last model for evaluation.")
 
     # 最终评估
     test_score, test_throughput, test_latency = evaluate(model, data, "test", args.batch_size)
@@ -509,7 +615,6 @@ def main():
         classes=mods,
         batch_size=args.batch_size
     )
-
 
 if __name__ == "__main__":
     main()
