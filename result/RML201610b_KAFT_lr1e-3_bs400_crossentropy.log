@@ -1,0 +1,38 @@
+Using device: cuda
+Modulations: [b'8PSK', b'AM-DSB', b'BPSK', b'CPFSK', b'GFSK', b'PAM4', b'QAM16', b'QAM64', b'QPSK', b'WBFM']
+SNRs: [-20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+Total samples: 1200000
+Padding: (720000, 128, 2)
+Padding: (240000, 128, 2)
+Padding: (240000, 128, 2)
+
+Final data shapes:
+X_train: (720000, 128, 2), Y_train: (720000, 10)
+X_val: (240000, 128, 2), Y_val: (240000, 10)
+X_test: (240000, 128, 2), Y_test: (240000, 10)
+After reshaping and sampling:
+X_train: (720000, 256) (sampled from original)
+X_val:   (240000, 256) (sampled from original)
+X_test:  (240000, 256) (sampled from original)
+Y_train: (720000, 10)
+{'d_out': 10, 'n_blocks': 3, 'd_block': 192, 'attention_n_heads': 8, 'attention_dropout': 0.2, 'ffn_d_hidden': None, 'ffn_d_hidden_multiplier': 1.3333333333333333, 'ffn_dropout': 0.1, 'residual_dropout': 0.0}
+Model device: cuda:0
+[INFO] Register count_linear() for <class 'torch.nn.modules.linear.Linear'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.dropout.Dropout'>.
+[INFO] Register count_normalization() for <class 'torch.nn.modules.normalization.LayerNorm'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.container.Sequential'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.activation.ReLU'>.
+Total Parameters: 893.386K
+FLOPs per sample: 209.492M
+Device: CUDA
+----------------------------------------------------------------------------------------
+
+Epoch 0, Train Loss: 1.7657, Val Loss: 1.4589, Test Loss: 1.4574, Val Acc: 0.4069, Test Acc: 0.4060
+🌸 New best epoch! 🌸
+
+Epoch 1, Train Loss: 1.3277, Val Loss: 1.2625, Test Loss: 1.2632, Val Acc: 0.4823, Test Acc: 0.4817
+🌸 New best epoch! 🌸
+
+Epoch 2, Train Loss: 1.2359, Val Loss: 1.1992, Test Loss: 1.2000, Val Acc: 0.5061, Test Acc: 0.5053
+🌸 New best epoch! 🌸
+

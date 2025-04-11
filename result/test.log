@@ -1,0 +1,96 @@
+Using device: cuda
+Using GPU(s): 0
+Using device: cuda
+Modulations: ['8PSK', 'AM-DSB', 'AM-SSB', 'BPSK', 'CPFSK', 'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM']
+SNRs: [-20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+Total samples: 220000
+Padding: (132000, 128, 2)
+Padding: (44000, 128, 2)
+Padding: (44000, 128, 2)
+
+Final data shapes:
+X_train: (132000, 128, 2), Y_train: (132000, 11)
+X_val: (44000, 128, 2), Y_val: (44000, 11)
+X_test: (44000, 128, 2), Y_test: (44000, 11)
+After reshaping and sampling:
+X_train: (1320, 256) (sampled from original)
+X_val:   (440, 256) (sampled from original)
+X_test:  (440, 256) (sampled from original)
+Y_train: (1320, 11)
+{'d_out': 11, 'n_blocks': 3, 'd_block': 192, 'attention_n_heads': 8, 'attention_dropout': 0.2, 'ffn_d_hidden': None, 'ffn_d_hidden_multiplier': 1.3333333333333333, 'ffn_dropout': 0.1, 'residual_dropout': 0.0}
+Model device: cuda:0
+[INFO] Register count_linear() for <class 'torch.nn.modules.linear.Linear'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.dropout.Dropout'>.
+[INFO] Register count_normalization() for <class 'torch.nn.modules.normalization.LayerNorm'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.container.Sequential'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.activation.ReLU'>.
+Total Parameters: 893.579K
+FLOPs per sample: 209.493M
+Device: CUDA
+----------------------------------------------------------------------------------------
+
+Epoch 0, Train Loss: 2.3991, Val Loss: 0.9962, Test Loss: 0.9963, Val Acc: 1.0000, Test Acc: 1.0000
+🌸 New best epoch! 🌸
+
+Epoch 1, Train Loss: 0.8156, Val Loss: 0.3482, Test Loss: 0.3478, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 2, Train Loss: 0.3542, Val Loss: 0.2114, Test Loss: 0.2113, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 3, Train Loss: 0.2210, Val Loss: 0.1430, Test Loss: 0.1430, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 4, Train Loss: 0.1542, Val Loss: 0.1091, Test Loss: 0.1091, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 5, Train Loss: 0.1195, Val Loss: 0.0900, Test Loss: 0.0901, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 6, Train Loss: 0.0994, Val Loss: 0.0777, Test Loss: 0.0777, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 7, Train Loss: 0.0876, Val Loss: 0.0730, Test Loss: 0.0730, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 8, Train Loss: 0.0818, Val Loss: 0.0688, Test Loss: 0.0688, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 9, Train Loss: 0.0773, Val Loss: 0.0650, Test Loss: 0.0650, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 10, Train Loss: 0.0729, Val Loss: 0.0617, Test Loss: 0.0617, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 11, Train Loss: 0.0696, Val Loss: 0.0589, Test Loss: 0.0589, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 12, Train Loss: 0.0663, Val Loss: 0.0565, Test Loss: 0.0565, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 13, Train Loss: 0.0640, Val Loss: 0.0554, Test Loss: 0.0554, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 14, Train Loss: 0.0628, Val Loss: 0.0544, Test Loss: 0.0544, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 15, Train Loss: 0.0616, Val Loss: 0.0534, Test Loss: 0.0534, Val Acc: 1.0000, Test Acc: 1.0000
+
+Epoch 16, Train Loss: 0.0605, Val Loss: 0.0525, Test Loss: 0.0525, Val Acc: 1.0000, Test Acc: 1.0000
+Time to best model: 1.32 seconds
+Test score after training: 1.0000
+Throughput after training: 3925.58 samples/second
+Latency after training: 0.25 ms/sample
+
+Result:
+{'val': 1.0, 'test': 1.0, 'epoch': 0}
+
+===== Accuracy By SNR =====
+SNR = -20: Acc =  1.0000
+SNR = -18: Acc =  1.0000
+SNR = -16: Acc =  1.0000
+SNR = -14: No samples in test set.
+SNR = -12: No samples in test set.
+SNR = -10: No samples in test set.
+SNR =  -8: No samples in test set.
+SNR =  -6: No samples in test set.
+SNR =  -4: No samples in test set.
+SNR =  -2: No samples in test set.
+SNR =   0: No samples in test set.
+SNR =   2: No samples in test set.
+SNR =   4: No samples in test set.
+SNR =   6: No samples in test set.
+SNR =   8: No samples in test set.
+SNR =  10: No samples in test set.
+SNR =  12: No samples in test set.
+SNR =  14: No samples in test set.
+SNR =  16: No samples in test set.
+SNR =  18: No samples in test set.
+==========================
+
