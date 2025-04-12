@@ -2,8 +2,8 @@
 
 # 配置变量
 DATASET="RML201610b"          # 数据集名称
-ALGORITHM="MKAFT"             # 算法名称
-PARAM="Fourier"              # 参数
+ALGORITHM="FT"             # 算法名称
+PARAM="None"              # 参数
 
 
 # 目标文件夹路径（包含数据集名）

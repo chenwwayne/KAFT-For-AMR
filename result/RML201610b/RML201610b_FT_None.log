@@ -22,19 +22,19 @@ Using device: cuda
 Modulations: [b'8PSK', b'AM-DSB', b'BPSK', b'CPFSK', b'GFSK', b'PAM4', b'QAM16', b'QAM64', b'QPSK', b'WBFM']
 SNRs: [-20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
 Total samples: 1200000
-Padding: (720000, 128, 2)
+Padding: (960000, 128, 2)
 Padding: (240000, 128, 2)
 Padding: (240000, 128, 2)
 
 Final data shapes:
-X_train: (720000, 128, 2), Y_train: (720000, 10)
+X_train: (960000, 128, 2), Y_train: (960000, 10)
 X_val: (240000, 128, 2), Y_val: (240000, 10)
 X_test: (240000, 128, 2), Y_test: (240000, 10)
 After reshaping and sampling:
-X_train: (720000, 256) (sampled from original)
+X_train: (960000, 256) (sampled from original)
 X_val:   (240000, 256) (sampled from original)
 X_test:  (240000, 256) (sampled from original)
-Y_train: (720000, 10)
+Y_train: (960000, 10)
 {'d_out': 10, 'n_blocks': 3, 'd_block': 192, 'attention_n_heads': 8, 'attention_dropout': 0.2, 'ffn_d_hidden': None, 'ffn_d_hidden_multiplier': 1.3333333333333333, 'ffn_dropout': 0.1, 'residual_dropout': 0.0}
 Model device: cuda:0
 [INFO] Register count_linear() for <class 'torch.nn.modules.linear.Linear'>.
@@ -46,71 +46,4 @@ Total Parameters: 893.386K
 FLOPs per sample: 209.492M
 Device: CUDA
 ----------------------------------------------------------------------------------------
-
-Epoch 0, Train Loss: 1.7670, Val Loss: 1.5565, Test Loss: 1.5575, Val Acc: 0.3434, Test Acc: 0.3437
-🌸 New best epoch! 🌸
-
-Epoch 1, Train Loss: 1.3940, Val Loss: 1.3284, Test Loss: 1.3298, Val Acc: 0.4546, Test Acc: 0.4528
-🌸 New best epoch! 🌸
-
-Epoch 2, Train Loss: 1.3133, Val Loss: 1.2717, Test Loss: 1.2719, Val Acc: 0.4718, Test Acc: 0.4727
-🌸 New best epoch! 🌸
-
-Epoch 3, Train Loss: 1.2709, Val Loss: 1.2316, Test Loss: 1.2314, Val Acc: 0.4916, Test Acc: 0.4903
-🌸 New best epoch! 🌸
-
-Epoch 4, Train Loss: 1.2225, Val Loss: 1.1866, Test Loss: 1.1860, Val Acc: 0.5106, Test Acc: 0.5103
-🌸 New best epoch! 🌸
-
-Epoch 5, Train Loss: 1.1879, Val Loss: 1.1602, Test Loss: 1.1591, Val Acc: 0.5191, Test Acc: 0.5202
-🌸 New best epoch! 🌸
-
-Epoch 6, Train Loss: 1.1671, Val Loss: 1.1620, Test Loss: 1.1594, Val Acc: 0.5198, Test Acc: 0.5197
-🌸 New best epoch! 🌸
-
-Epoch 7, Train Loss: 1.1423, Val Loss: 1.1276, Test Loss: 1.1270, Val Acc: 0.5328, Test Acc: 0.5331
-🌸 New best epoch! 🌸
-
-Epoch 8, Train Loss: 1.1190, Val Loss: 1.1046, Test Loss: 1.1028, Val Acc: 0.5368, Test Acc: 0.5380
-🌸 New best epoch! 🌸
-
-Epoch 9, Train Loss: 1.0982, Val Loss: 1.0827, Test Loss: 1.0812, Val Acc: 0.5465, Test Acc: 0.5476
-🌸 New best epoch! 🌸
-
-Epoch 10, Train Loss: 1.0845, Val Loss: 1.0735, Test Loss: 1.0730, Val Acc: 0.5504, Test Acc: 0.5502
-🌸 New best epoch! 🌸
-
-Epoch 11, Train Loss: 1.0738, Val Loss: 1.0714, Test Loss: 1.0700, Val Acc: 0.5515, Test Acc: 0.5518
-🌸 New best epoch! 🌸
-
-Epoch 12, Train Loss: 1.0639, Val Loss: 1.0457, Test Loss: 1.0448, Val Acc: 0.5630, Test Acc: 0.5628
-🌸 New best epoch! 🌸
-
-Epoch 13, Train Loss: 1.0532, Val Loss: 1.0432, Test Loss: 1.0428, Val Acc: 0.5620, Test Acc: 0.5621
-
-Epoch 14, Train Loss: 1.0449, Val Loss: 1.0348, Test Loss: 1.0346, Val Acc: 0.5691, Test Acc: 0.5691
-🌸 New best epoch! 🌸
-
-Epoch 15, Train Loss: 1.0366, Val Loss: 1.0216, Test Loss: 1.0213, Val Acc: 0.5745, Test Acc: 0.5757
-🌸 New best epoch! 🌸
-
-Epoch 16, Train Loss: 1.0321, Val Loss: 1.0376, Test Loss: 1.0370, Val Acc: 0.5721, Test Acc: 0.5729
-
-Epoch 17, Train Loss: 1.0274, Val Loss: 1.0178, Test Loss: 1.0183, Val Acc: 0.5795, Test Acc: 0.5784
-🌸 New best epoch! 🌸
-
-Epoch 18, Train Loss: 1.0230, Val Loss: 1.0107, Test Loss: 1.0103, Val Acc: 0.5791, Test Acc: 0.5807
-
-Epoch 19, Train Loss: 1.0202, Val Loss: 1.0162, Test Loss: 1.0142, Val Acc: 0.5789, Test Acc: 0.5799
-
-Epoch 20, Train Loss: 1.0163, Val Loss: 1.0135, Test Loss: 1.0136, Val Acc: 0.5793, Test Acc: 0.5797
-
-Epoch 21, Train Loss: 1.0136, Val Loss: 1.0046, Test Loss: 1.0030, Val Acc: 0.5844, Test Acc: 0.5860
-🌸 New best epoch! 🌸
-
-Epoch 22, Train Loss: 1.0099, Val Loss: 1.0078, Test Loss: 1.0068, Val Acc: 0.5845, Test Acc: 0.5847
-🌸 New best epoch! 🌸
-
-Epoch 23, Train Loss: 1.0075, Val Loss: 0.9956, Test Loss: 0.9957, Val Acc: 0.5891, Test Acc: 0.5902
-🌸 New best epoch! 🌸
 

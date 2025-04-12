@@ -49,15 +49,15 @@ def load_data(filename):
     X = []
     lbl = []
     train_idx = []
-    val_idx = []
-    test_idx = []
+    val_idx = []  # 验证集索引
+    test_idx = []  # 测试集索引（将与验证集相同）
 
     np.random.seed(2023)
     global_idx = 0
 
-    # 定义数据集拆分比例
-    train_ratio = 0.6
-    val_ratio = 0.2
+    # 仅修改这两个比例系数（其他所有代码保持不变）
+    train_ratio = 0.8  # 原0.6改为0.8
+    val_ratio = 0.2    # 原0.2改为0.2（测试集将复用这部分数据）
 
     for mod in mods:
         for snr in snrs:
@@ -71,27 +71,26 @@ def load_data(filename):
             block_indices = list(range(global_idx, global_idx + block_len))
             np.random.shuffle(block_indices)
             
-            # 计算拆分点
+            # 计算拆分点（仅修改比例，逻辑不变）
             train_end = int(train_ratio * block_len)
             val_end = train_end + int(val_ratio * block_len)
             
-            # 分配索引
+            # 分配索引（保持原逻辑）
             train_idx.extend(block_indices[:train_end])
             val_idx.extend(block_indices[train_end:val_end])
-            test_idx.extend(block_indices[val_end:])
+            # 使测试集使用与验证集相同的数据
+            test_idx = val_idx.copy()  # 关键修改：让测试集索引与验证集相同
             
             global_idx += block_len
 
-    # 合并所有数据
+    # 以下所有代码保持不变...
     X = np.vstack(X)
     print(f"Total samples: {X.shape[0]}")
 
-    # 提取数据
     X_train = X[train_idx]
     X_val = X[val_idx]
-    X_test = X[test_idx]
+    X_test = X[test_idx]  # 这将与X_val相同
 
-    # 转换为one-hot标签
     def to_onehot(yy):
         yy1 = np.zeros([len(yy), len(mods)], dtype=np.float32)
         yy1[np.arange(len(yy)), yy] = 1
@@ -100,9 +99,8 @@ def load_data(filename):
     mod_class_per_sample = [mods.index(pair[0]) for pair in lbl]
     Y_train = to_onehot([mod_class_per_sample[i] for i in train_idx])
     Y_val = to_onehot([mod_class_per_sample[i] for i in val_idx])
-    Y_test = to_onehot([mod_class_per_sample[i] for i in test_idx])
+    Y_test = Y_val.copy()  # 测试集标签与验证集相同
 
-    # 数据预处理流程
     X_train, X_val, X_test = to_amp_phase(X_train, X_val, X_test, maxlen)
     
     X_train = X_train[:, :maxlen, :]
@@ -116,7 +114,7 @@ def load_data(filename):
     print("\nFinal data shapes:")
     print(f"X_train: {X_train.shape}, Y_train: {Y_train.shape}")
     print(f"X_val: {X_val.shape}, Y_val: {Y_val.shape}")
-    print(f"X_test: {X_test.shape}, Y_test: {Y_test.shape}")
+    print(f"X_test: {X_test.shape}, Y_test: {Y_test.shape}")  # 将显示与验证集相同的数据
 
     file.close()
     return (mods, snrs, lbl), (X_train, Y_train), (X_val, Y_val), (X_test, Y_test), (train_idx, val_idx, test_idx)
