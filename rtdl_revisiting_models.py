@@ -728,9 +728,9 @@ class FTTransformer(nn.Module):
 
         # >>> Feature embeddings (Figure 2a in the paper).
         # ================================== FT ==========================================
-        self.cont_embeddings = (
-            LinearEmbeddings(n_cont_features, d_block) if n_cont_features > 0 else None
-        )
+        # self.cont_embeddings = (
+        #     LinearEmbeddings(n_cont_features, d_block) if n_cont_features > 0 else None
+        # )
         # ================================== FT ==========================================
 
         # ================================== KAFT ==========================================
@@ -755,29 +755,30 @@ class FTTransformer(nn.Module):
         # ================================== KAFT ==========================================
 
         # ================================== MKAFT ==========================================
-        # from kan.mix_kan import KANEmbeddings
-        # self.cont_embeddings = (
-        #     KANEmbeddings(
-        #         n_features=n_cont_features,
-        #         d_embedding=d_block,
-        #         grid_size=5,  # 可根据需要调整
-        #         spline_order=3,  # 可根据需要调整
-        #         scale_noise=0.1,  # 可根据需要调整
-        #         scale_base=1.0,  # 可根据需要调整
-        #         scale_spline=1.0,  # 可根据需要调整
-        #         enable_standalone_scale_spline=False,  # 可根据需要调整
-        #         base_activation=torch.nn.SiLU,  # 可根据需要调整
-        #         grid_eps=0.02,  # 可根据需要调整
-        #         grid_range=[-2, 2],  # 可根据需要调整
-        #         gp_grid_min = -2,
-        #         gp_grid_max = 2,
-        #         gp_num_grids = 5,
-        #         gp_length_scale = 0.2,
-        #         gp_spline_weight_init_scale = 0.1,
-        #     )
-        #     if n_cont_features > 0
-        #     else None
-        # )
+        from kan.mix_kan import KANEmbeddings
+        self.cont_embeddings = (
+            KANEmbeddings(
+                n_features=n_cont_features,
+                d_embedding=d_block,
+                grid_size=5,  # 可根据需要调整
+                spline_order=3,  # 可根据需要调整
+                scale_noise=0.1,  # 可根据需要调整
+                scale_base=1.0,  # 可根据需要调整
+                scale_spline=1.0,  # 可根据需要调整
+                enable_standalone_scale_spline=False,  # 可根据需要调整
+                base_activation=torch.nn.SiLU,  # 可根据需要调整
+                grid_eps=0.02,  # 可根据需要调整
+                grid_range=[-2, 2],  # 可根据需要调整
+                gp_grid_min = -2,
+                gp_grid_max = 2,
+                gp_num_grids = 5,
+                gp_length_scale = 0.2,
+                gp_spline_weight_init_scale = 0.1,
+                fourier_gridsize=5
+            )
+            if n_cont_features > 0
+            else None
+        )
         # ================================== MKAFT ==========================================
 
         self.backbone = FTTransformerBackbone(

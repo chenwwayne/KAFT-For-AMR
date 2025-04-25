@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # 配置变量
-DATASET="RML201610b"          # 数据集名称
-ALGORITHM="FT"             # 算法名称
-PARAM="None"              # 参数
+DATASET="RML201610a"          # 数据集名称
+ALGORITHM="MKAFT"             # 算法名称
+PARAM="Fourier_grid5"              # 参数
 
 
 # 目标文件夹路径（包含数据集名）

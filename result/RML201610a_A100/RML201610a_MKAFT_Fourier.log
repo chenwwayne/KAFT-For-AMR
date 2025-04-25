@@ -1,0 +1,257 @@
+Using device: cuda
+
+========================================
+Running with parameters:
+             dataset: RML201610a
+           data_path: ./dataset
+            n_epochs: 1000000000
+            patience: 50
+          batch_size: 400
+  accumulation_steps: 1
+          data_ratio: 1.0
+                  lr: 0.001
+         lr_patience: 5
+           lr_factor: 0.5
+              device: cuda
+                 gpu: 0
+     best_model_path: result/RML201610a/RML201610a_MKAFT_BEST.pth
+========================================
+
+Using GPU(s): 0
+Using device: cuda
+Modulations: ['8PSK', 'AM-DSB', 'AM-SSB', 'BPSK', 'CPFSK', 'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM']
+SNRs: [-20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+Total samples: 220000
+Padding: (176000, 128, 2)
+Padding: (44000, 128, 2)
+Padding: (44000, 128, 2)
+
+Final data shapes:
+X_train: (176000, 128, 2), Y_train: (176000, 11)
+X_val: (44000, 128, 2), Y_val: (44000, 11)
+X_test: (44000, 128, 2), Y_test: (44000, 11)
+After reshaping and sampling:
+X_train: (176000, 256) (sampled from original)
+X_val:   (44000, 256) (sampled from original)
+X_test:  (44000, 256) (sampled from original)
+Y_train: (176000, 11)
+{'d_out': 11, 'n_blocks': 3, 'd_block': 192, 'attention_n_heads': 8, 'attention_dropout': 0.2, 'ffn_d_hidden': None, 'ffn_d_hidden_multiplier': 1.3333333333333333, 'ffn_dropout': 0.1, 'residual_dropout': 0.0}
+Model device: cuda:0
+[INFO] Register count_linear() for <class 'torch.nn.modules.linear.Linear'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.dropout.Dropout'>.
+[INFO] Register count_normalization() for <class 'torch.nn.modules.normalization.LayerNorm'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.container.Sequential'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.activation.ReLU'>.
+Total Parameters: 893.579K
+FLOPs per sample: 209.493M
+Device: CUDA
+----------------------------------------------------------------------------------------
+
+Epoch 0, Train Loss: 1.9068, Val Loss: 1.6543, Test Loss: 1.6543, Val Acc: 0.3843, Test Acc: 0.3843
+🌸 New best epoch! 🌸
+
+Epoch 1, Train Loss: 1.5670, Val Loss: 1.5304, Test Loss: 1.5304, Val Acc: 0.4336, Test Acc: 0.4336
+🌸 New best epoch! 🌸
+
+Epoch 2, Train Loss: 1.5098, Val Loss: 1.5003, Test Loss: 1.5003, Val Acc: 0.4412, Test Acc: 0.4412
+🌸 New best epoch! 🌸
+
+Epoch 3, Train Loss: 1.4769, Val Loss: 1.4641, Test Loss: 1.4641, Val Acc: 0.4554, Test Acc: 0.4554
+🌸 New best epoch! 🌸
+
+Epoch 4, Train Loss: 1.4374, Val Loss: 1.4248, Test Loss: 1.4248, Val Acc: 0.4697, Test Acc: 0.4697
+🌸 New best epoch! 🌸
+
+Epoch 5, Train Loss: 1.4125, Val Loss: 1.4134, Test Loss: 1.4134, Val Acc: 0.4764, Test Acc: 0.4764
+🌸 New best epoch! 🌸
+
+Epoch 6, Train Loss: 1.3933, Val Loss: 1.3976, Test Loss: 1.3976, Val Acc: 0.4799, Test Acc: 0.4799
+🌸 New best epoch! 🌸
+
+Epoch 7, Train Loss: 1.3733, Val Loss: 1.3655, Test Loss: 1.3655, Val Acc: 0.4929, Test Acc: 0.4929
+🌸 New best epoch! 🌸
+
+Epoch 8, Train Loss: 1.3470, Val Loss: 1.3495, Test Loss: 1.3495, Val Acc: 0.5019, Test Acc: 0.5019
+🌸 New best epoch! 🌸
+
+Epoch 9, Train Loss: 1.3165, Val Loss: 1.3117, Test Loss: 1.3117, Val Acc: 0.5114, Test Acc: 0.5114
+🌸 New best epoch! 🌸
+
+Epoch 10, Train Loss: 1.2838, Val Loss: 1.2961, Test Loss: 1.2961, Val Acc: 0.5182, Test Acc: 0.5182
+🌸 New best epoch! 🌸
+
+Epoch 11, Train Loss: 1.2601, Val Loss: 1.2779, Test Loss: 1.2779, Val Acc: 0.5253, Test Acc: 0.5253
+🌸 New best epoch! 🌸
+
+Epoch 12, Train Loss: 1.2431, Val Loss: 1.2599, Test Loss: 1.2599, Val Acc: 0.5386, Test Acc: 0.5386
+🌸 New best epoch! 🌸
+
+Epoch 13, Train Loss: 1.2302, Val Loss: 1.2577, Test Loss: 1.2577, Val Acc: 0.5410, Test Acc: 0.5410
+🌸 New best epoch! 🌸
+
+Epoch 14, Train Loss: 1.2181, Val Loss: 1.2495, Test Loss: 1.2495, Val Acc: 0.5447, Test Acc: 0.5447
+🌸 New best epoch! 🌸
+
+Epoch 15, Train Loss: 1.2086, Val Loss: 1.2479, Test Loss: 1.2479, Val Acc: 0.5425, Test Acc: 0.5425
+
+Epoch 16, Train Loss: 1.1989, Val Loss: 1.2435, Test Loss: 1.2435, Val Acc: 0.5423, Test Acc: 0.5423
+
+Epoch 17, Train Loss: 1.1880, Val Loss: 1.2278, Test Loss: 1.2278, Val Acc: 0.5497, Test Acc: 0.5497
+🌸 New best epoch! 🌸
+
+Epoch 18, Train Loss: 1.1815, Val Loss: 1.2350, Test Loss: 1.2350, Val Acc: 0.5514, Test Acc: 0.5514
+🌸 New best epoch! 🌸
+
+Epoch 19, Train Loss: 1.1731, Val Loss: 1.2646, Test Loss: 1.2646, Val Acc: 0.5394, Test Acc: 0.5394
+
+Epoch 20, Train Loss: 1.1653, Val Loss: 1.2317, Test Loss: 1.2317, Val Acc: 0.5525, Test Acc: 0.5525
+🌸 New best epoch! 🌸
+
+Epoch 21, Train Loss: 1.1571, Val Loss: 1.2263, Test Loss: 1.2263, Val Acc: 0.5572, Test Acc: 0.5572
+🌸 New best epoch! 🌸
+
+Epoch 22, Train Loss: 1.1490, Val Loss: 1.2276, Test Loss: 1.2276, Val Acc: 0.5559, Test Acc: 0.5559
+
+Epoch 23, Train Loss: 1.1422, Val Loss: 1.2377, Test Loss: 1.2377, Val Acc: 0.5526, Test Acc: 0.5526
+
+Epoch 24, Train Loss: 1.1352, Val Loss: 1.2370, Test Loss: 1.2370, Val Acc: 0.5539, Test Acc: 0.5539
+
+Epoch 25, Train Loss: 1.1280, Val Loss: 1.2482, Test Loss: 1.2482, Val Acc: 0.5536, Test Acc: 0.5536
+
+Epoch 26, Train Loss: 1.1219, Val Loss: 1.2330, Test Loss: 1.2330, Val Acc: 0.5605, Test Acc: 0.5605
+🌸 New best epoch! 🌸
+
+Epoch 27, Train Loss: 1.1177, Val Loss: 1.2227, Test Loss: 1.2227, Val Acc: 0.5619, Test Acc: 0.5619
+🌸 New best epoch! 🌸
+
+Epoch 28, Train Loss: 1.1089, Val Loss: 1.2420, Test Loss: 1.2420, Val Acc: 0.5582, Test Acc: 0.5582
+
+Epoch 29, Train Loss: 1.1045, Val Loss: 1.2592, Test Loss: 1.2592, Val Acc: 0.5536, Test Acc: 0.5536
+
+Epoch 30, Train Loss: 1.0981, Val Loss: 1.2306, Test Loss: 1.2306, Val Acc: 0.5540, Test Acc: 0.5540
+
+Epoch 31, Train Loss: 1.0915, Val Loss: 1.2359, Test Loss: 1.2359, Val Acc: 0.5597, Test Acc: 0.5597
+
+Epoch 32, Train Loss: 1.0844, Val Loss: 1.2652, Test Loss: 1.2652, Val Acc: 0.5540, Test Acc: 0.5540
+
+Epoch 33, Train Loss: 1.0772, Val Loss: 1.2520, Test Loss: 1.2520, Val Acc: 0.5604, Test Acc: 0.5604
+
+Epoch 34, Train Loss: 1.0264, Val Loss: 1.2788, Test Loss: 1.2788, Val Acc: 0.5610, Test Acc: 0.5610
+
+Epoch 35, Train Loss: 1.0092, Val Loss: 1.3016, Test Loss: 1.3016, Val Acc: 0.5581, Test Acc: 0.5581
+
+Epoch 36, Train Loss: 0.9991, Val Loss: 1.3231, Test Loss: 1.3231, Val Acc: 0.5594, Test Acc: 0.5594
+
+Epoch 37, Train Loss: 0.9879, Val Loss: 1.3095, Test Loss: 1.3095, Val Acc: 0.5592, Test Acc: 0.5592
+
+Epoch 38, Train Loss: 0.9803, Val Loss: 1.3132, Test Loss: 1.3132, Val Acc: 0.5606, Test Acc: 0.5606
+
+Epoch 39, Train Loss: 0.9696, Val Loss: 1.3815, Test Loss: 1.3815, Val Acc: 0.5545, Test Acc: 0.5545
+
+Epoch 40, Train Loss: 0.9291, Val Loss: 1.3859, Test Loss: 1.3859, Val Acc: 0.5578, Test Acc: 0.5578
+
+Epoch 41, Train Loss: 0.9166, Val Loss: 1.3909, Test Loss: 1.3909, Val Acc: 0.5573, Test Acc: 0.5573
+
+Epoch 42, Train Loss: 0.9052, Val Loss: 1.4219, Test Loss: 1.4219, Val Acc: 0.5579, Test Acc: 0.5579
+
+Epoch 43, Train Loss: 0.8978, Val Loss: 1.4269, Test Loss: 1.4269, Val Acc: 0.5545, Test Acc: 0.5545
+
+Epoch 44, Train Loss: 0.8891, Val Loss: 1.4352, Test Loss: 1.4352, Val Acc: 0.5569, Test Acc: 0.5569
+
+Epoch 45, Train Loss: 0.8807, Val Loss: 1.4708, Test Loss: 1.4708, Val Acc: 0.5526, Test Acc: 0.5526
+
+Epoch 46, Train Loss: 0.8563, Val Loss: 1.4992, Test Loss: 1.4992, Val Acc: 0.5554, Test Acc: 0.5554
+
+Epoch 47, Train Loss: 0.8473, Val Loss: 1.5131, Test Loss: 1.5131, Val Acc: 0.5540, Test Acc: 0.5540
+
+Epoch 48, Train Loss: 0.8421, Val Loss: 1.4855, Test Loss: 1.4855, Val Acc: 0.5563, Test Acc: 0.5563
+
+Epoch 49, Train Loss: 0.8376, Val Loss: 1.5285, Test Loss: 1.5285, Val Acc: 0.5549, Test Acc: 0.5549
+
+Epoch 50, Train Loss: 0.8325, Val Loss: 1.5305, Test Loss: 1.5305, Val Acc: 0.5538, Test Acc: 0.5538
+
+Epoch 51, Train Loss: 0.8278, Val Loss: 1.5554, Test Loss: 1.5554, Val Acc: 0.5529, Test Acc: 0.5529
+
+Epoch 52, Train Loss: 0.8137, Val Loss: 1.5730, Test Loss: 1.5730, Val Acc: 0.5536, Test Acc: 0.5536
+
+Epoch 53, Train Loss: 0.8097, Val Loss: 1.5800, Test Loss: 1.5800, Val Acc: 0.5530, Test Acc: 0.5530
+
+Epoch 54, Train Loss: 0.8059, Val Loss: 1.5709, Test Loss: 1.5709, Val Acc: 0.5538, Test Acc: 0.5538
+
+Epoch 55, Train Loss: 0.8036, Val Loss: 1.5992, Test Loss: 1.5992, Val Acc: 0.5517, Test Acc: 0.5517
+
+Epoch 56, Train Loss: 0.7999, Val Loss: 1.5801, Test Loss: 1.5801, Val Acc: 0.5528, Test Acc: 0.5528
+
+Epoch 57, Train Loss: 0.8003, Val Loss: 1.5922, Test Loss: 1.5922, Val Acc: 0.5524, Test Acc: 0.5524
+
+Epoch 58, Train Loss: 0.7920, Val Loss: 1.6066, Test Loss: 1.6066, Val Acc: 0.5538, Test Acc: 0.5538
+
+Epoch 59, Train Loss: 0.7881, Val Loss: 1.6157, Test Loss: 1.6157, Val Acc: 0.5526, Test Acc: 0.5526
+
+Epoch 60, Train Loss: 0.7863, Val Loss: 1.6237, Test Loss: 1.6237, Val Acc: 0.5511, Test Acc: 0.5511
+
+Epoch 61, Train Loss: 0.7864, Val Loss: 1.6237, Test Loss: 1.6237, Val Acc: 0.5515, Test Acc: 0.5515
+
+Epoch 62, Train Loss: 0.7852, Val Loss: 1.6376, Test Loss: 1.6376, Val Acc: 0.5515, Test Acc: 0.5515
+
+Epoch 63, Train Loss: 0.7816, Val Loss: 1.6160, Test Loss: 1.6160, Val Acc: 0.5526, Test Acc: 0.5526
+
+Epoch 64, Train Loss: 0.7797, Val Loss: 1.6400, Test Loss: 1.6400, Val Acc: 0.5517, Test Acc: 0.5517
+
+Epoch 65, Train Loss: 0.7771, Val Loss: 1.6421, Test Loss: 1.6421, Val Acc: 0.5518, Test Acc: 0.5518
+
+Epoch 66, Train Loss: 0.7779, Val Loss: 1.6460, Test Loss: 1.6460, Val Acc: 0.5516, Test Acc: 0.5516
+
+Epoch 67, Train Loss: 0.7759, Val Loss: 1.6444, Test Loss: 1.6444, Val Acc: 0.5519, Test Acc: 0.5519
+
+Epoch 68, Train Loss: 0.7762, Val Loss: 1.6499, Test Loss: 1.6499, Val Acc: 0.5516, Test Acc: 0.5516
+
+Epoch 69, Train Loss: 0.7744, Val Loss: 1.6552, Test Loss: 1.6552, Val Acc: 0.5507, Test Acc: 0.5507
+
+Epoch 70, Train Loss: 0.7742, Val Loss: 1.6462, Test Loss: 1.6462, Val Acc: 0.5517, Test Acc: 0.5517
+
+Epoch 71, Train Loss: 0.7720, Val Loss: 1.6470, Test Loss: 1.6470, Val Acc: 0.5518, Test Acc: 0.5518
+
+Epoch 72, Train Loss: 0.7739, Val Loss: 1.6496, Test Loss: 1.6496, Val Acc: 0.5520, Test Acc: 0.5520
+
+Epoch 73, Train Loss: 0.7721, Val Loss: 1.6531, Test Loss: 1.6531, Val Acc: 0.5523, Test Acc: 0.5523
+
+Epoch 74, Train Loss: 0.7716, Val Loss: 1.6521, Test Loss: 1.6521, Val Acc: 0.5515, Test Acc: 0.5515
+
+Epoch 75, Train Loss: 0.7716, Val Loss: 1.6525, Test Loss: 1.6525, Val Acc: 0.5517, Test Acc: 0.5517
+
+Epoch 76, Train Loss: 0.7694, Val Loss: 1.6623, Test Loss: 1.6623, Val Acc: 0.5508, Test Acc: 0.5508
+
+Epoch 77, Train Loss: 0.7708, Val Loss: 1.6638, Test Loss: 1.6638, Val Acc: 0.5511, Test Acc: 0.5511
+Time to best model: 7900.47 seconds
+Loaded best model from result/RML201610a/RML201610a_MKAFT_BEST.pth for evaluation.
+Test score after training: 0.5619
+Throughput after training: 2689.28 samples/second
+Latency after training: 0.37 ms/sample
+
+Result:
+{'val': 0.5619090909090909, 'test': 0.5619090909090909, 'epoch': 27}
+
+===== Accuracy By SNR =====
+SNR = -20: Acc =  0.0927
+SNR = -18: Acc =  0.0977
+SNR = -16: Acc =  0.0986
+SNR = -14: Acc =  0.1014
+SNR = -12: Acc =  0.1305
+SNR = -10: Acc =  0.1732
+SNR =  -8: Acc =  0.2564
+SNR =  -6: Acc =  0.3955
+SNR =  -4: Acc =  0.5064
+SNR =  -2: Acc =  0.6295
+SNR =   0: Acc =  0.7750
+SNR =   2: Acc =  0.8491
+SNR =   4: Acc =  0.8714
+SNR =   6: Acc =  0.8900
+SNR =   8: Acc =  0.8977
+SNR =  10: Acc =  0.8977
+SNR =  12: Acc =  0.9036
+SNR =  14: Acc =  0.8923
+SNR =  16: Acc =  0.8905
+SNR =  18: Acc =  0.8891
+==========================
+

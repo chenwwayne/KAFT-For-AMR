@@ -1,0 +1,61 @@
+Using device: cuda
+
+========================================
+Running with parameters:
+             dataset: RML201610b
+           data_path: ./dataset
+            n_epochs: 1000000000
+            patience: 50
+          batch_size: 400
+  accumulation_steps: 1
+          data_ratio: 1.0
+                  lr: 0.001
+         lr_patience: 5
+           lr_factor: 0.5
+              device: cuda
+                 gpu: 0
+     best_model_path: result/RML201610b/RML201610b_MKAFT_BEST.pth
+========================================
+
+Using GPU(s): 0
+Using device: cuda
+Modulations: [b'8PSK', b'AM-DSB', b'BPSK', b'CPFSK', b'GFSK', b'PAM4', b'QAM16', b'QAM64', b'QPSK', b'WBFM']
+SNRs: [-20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+Total samples: 1200000
+Padding: (960000, 128, 2)
+Padding: (240000, 128, 2)
+Padding: (240000, 128, 2)
+
+Final data shapes:
+X_train: (960000, 128, 2), Y_train: (960000, 10)
+X_val: (240000, 128, 2), Y_val: (240000, 10)
+X_test: (240000, 128, 2), Y_test: (240000, 10)
+After reshaping and sampling:
+X_train: (960000, 256) (sampled from original)
+X_val:   (240000, 256) (sampled from original)
+X_test:  (240000, 256) (sampled from original)
+Y_train: (960000, 10)
+{'d_out': 10, 'n_blocks': 3, 'd_block': 192, 'attention_n_heads': 8, 'attention_dropout': 0.2, 'ffn_d_hidden': None, 'ffn_d_hidden_multiplier': 1.3333333333333333, 'ffn_dropout': 0.1, 'residual_dropout': 0.0}
+Model device: cuda:0
+[INFO] Register count_linear() for <class 'torch.nn.modules.linear.Linear'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.dropout.Dropout'>.
+[INFO] Register count_normalization() for <class 'torch.nn.modules.normalization.LayerNorm'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.container.Sequential'>.
+[INFO] Register zero_ops() for <class 'torch.nn.modules.activation.ReLU'>.
+Total Parameters: 893.386K
+FLOPs per sample: 209.492M
+Device: CUDA
+----------------------------------------------------------------------------------------
+
+Epoch 0, Train Loss: 1.4975, Val Loss: 1.3057, Test Loss: 1.3057, Val Acc: 0.4746, Test Acc: 0.4746
+🌸 New best epoch! 🌸
+
+Epoch 1, Train Loss: 1.2645, Val Loss: 1.2024, Test Loss: 1.2024, Val Acc: 0.5141, Test Acc: 0.5141
+🌸 New best epoch! 🌸
+
+Epoch 2, Train Loss: 1.1762, Val Loss: 1.1294, Test Loss: 1.1294, Val Acc: 0.5406, Test Acc: 0.5406
+🌸 New best epoch! 🌸
+
+Epoch 3, Train Loss: 1.1163, Val Loss: 1.0880, Test Loss: 1.0880, Val Acc: 0.5552, Test Acc: 0.5552
+🌸 New best epoch! 🌸
+

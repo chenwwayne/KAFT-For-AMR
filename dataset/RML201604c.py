@@ -1,3 +1,4 @@
+
 import numpy as np
 import pickle
 from numpy import linalg as la
@@ -48,15 +49,14 @@ def load_data(filename):
     X = []
     lbl = []
     train_idx = []
-    val_idx = []
-    test_idx = []
+    val_test_idx = []  # 合并验证和测试集索引
 
     np.random.seed(2023)
     global_idx = 0
 
     # 定义数据集拆分比例
-    train_ratio = 0.6
-    val_ratio = 0.2
+    train_ratio = 0.8  # 80%训练集
+    val_test_ratio = 0.2  # 20%验证/测试集
 
     for mod in mods:
         for snr in snrs:
@@ -72,12 +72,10 @@ def load_data(filename):
             
             # 计算拆分点
             train_end = int(train_ratio * block_len)
-            val_end = train_end + int(val_ratio * block_len)
             
             # 分配索引
             train_idx.extend(block_indices[:train_end])
-            val_idx.extend(block_indices[train_end:val_end])
-            test_idx.extend(block_indices[val_end:])
+            val_test_idx.extend(block_indices[train_end:])  # 剩余的20%用于验证和测试
             
             global_idx += block_len
 
@@ -87,8 +85,7 @@ def load_data(filename):
 
     # 提取数据
     X_train = X[train_idx]
-    X_val = X[val_idx]
-    X_test = X[test_idx]
+    X_val_test = X[val_test_idx]  # 验证和测试使用相同数据
 
     # 转换为one-hot标签
     def to_onehot(yy):
@@ -98,11 +95,10 @@ def load_data(filename):
 
     mod_class_per_sample = [mods.index(pair[0]) for pair in lbl]
     Y_train = to_onehot([mod_class_per_sample[i] for i in train_idx])
-    Y_val = to_onehot([mod_class_per_sample[i] for i in val_idx])
-    Y_test = to_onehot([mod_class_per_sample[i] for i in test_idx])
+    Y_val_test = to_onehot([mod_class_per_sample[i] for i in val_test_idx])
 
     # 数据预处理流程
-    X_train, X_val, X_test = to_amp_phase(X_train, X_val, X_test, maxlen)
+    X_train, X_val, X_test = to_amp_phase(X_train, X_val_test, X_val_test, maxlen)  # 注意这里验证和测试使用相同数据
     
     X_train = X_train[:, :maxlen, :]
     X_val = X_val[:, :maxlen, :]
@@ -114,10 +110,10 @@ def load_data(filename):
 
     print("\nFinal data shapes:")
     print(f"X_train: {X_train.shape}, Y_train: {Y_train.shape}")
-    print(f"X_val: {X_val.shape}, Y_val: {Y_val.shape}")
-    print(f"X_test: {X_test.shape}, Y_test: {Y_test.shape}")
+    print(f"X_val: {X_val.shape}, Y_val: {Y_val_test.shape}")  # 验证集标签
+    print(f"X_test: {X_test.shape}, Y_test: {Y_val_test.shape}")  # 测试集标签
 
-    return (mods, snrs, lbl), (X_train, Y_train), (X_val, Y_val), (X_test, Y_test), (train_idx, val_idx, test_idx)
+    return (mods, snrs, lbl), (X_train, Y_train), (X_val, Y_val_test), (X_test, Y_val_test), (train_idx, val_test_idx, val_test_idx)
 
 if __name__ == '__main__':
     # 使用示例

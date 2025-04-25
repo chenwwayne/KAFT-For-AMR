@@ -212,7 +212,7 @@ class KANEmbeddings(nn.Module):
         base_activation=nn.SiLU,
         grid_eps=0.02,
         grid_range=[-1, 1],
-        fourier_gridsize=10,  # Fourier 变换的 grid size
+        fourier_gridsize=5,  # Fourier 变换的 grid size
         gp_grid_min: float = -2,
         gp_grid_max: float = 2,
         gp_num_grids: int = 8,
